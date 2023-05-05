@@ -21,15 +21,15 @@ class UserController {
     }
     async updateName(req, res) {
         let id = req.query.id;
-        await userService_1.default.updateName(id, req.body);
+        await userService_1.default.updateName(id, req.body.name);
     }
     async updateAvatar(req, res) {
         let id = req.query.id;
-        await userService_1.default.updateAvatar(id, req.body);
+        await userService_1.default.updateAvatar(id, req.body.name);
     }
     async updateBackground(req, res) {
         let id = req.query.id;
-        await userService_1.default.updateBackground(id, req.body);
+        await userService_1.default.updateBackground(id, req.body.name);
     }
 }
 exports.default = new UserController();

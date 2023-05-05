@@ -24,17 +24,17 @@ class UserController {
 
     async updateName(req:Request, res:Response){
         let id = req.query.id
-        await userService.updateName(id, req.body)
+        await userService.updateName(id, req.body.name)
     }
 
     async updateAvatar(req:Request, res:Response){
         let id = req.query.id
-        await userService.updateAvatar(id, req.body)
+        await userService.updateAvatar(id, req.body.name)
     }
     
     async updateBackground(req:Request, res:Response){
         let id = req.query.id
-        await userService.updateBackground(id, req.body)
+        await userService.updateBackground(id, req.body.name)
     }
 
     
