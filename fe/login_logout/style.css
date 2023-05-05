@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Quicksand", sans-serif; */
+  overflow: hidden;
+}
+a{
+    text-decoration: none;
+}
+.form-login {
+  margin-top: 150px;
+}
+
+.form-logo {
+  padding: 250px 0 0 200px;
+}
+
+.form-logo b {
+  color: blue;
+  font-size: 50px;
+}
+
+h3 {
+  padding-top: 20px;
+}
+
+.shadow-lg {
+  width: 500px;
+  height: 400px;
+}
+
+.btn-success {
+  background-color: #42b72a;
+  border: solid 1px #42b72a;
+  margin: 15px 0;
+}
+
+.text-center {
+  width: 500px;
+}
+
+.text-center a {
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.modal-content {
+
+}
+.modal-header{
+  border-bottom: none;
+}
+.modal-header-text {
+  flex-direction: column;
+}
+
+.modal-header-text b {
+  font-size: 30px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  border-top: none;
+}
+
+.modal-body-main > .form-group,
+.modal-body-main > select {
+  margin-top: 10px;
+}
+
+.form-password {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: black;
+}
+
+.form-password input {
+  color: inherit;
+  outline: none;
+  border: none;
+  background: transparent;
+  display: inline-block;
+  margin-left: 10px;
+  width: 100%;
+  height: 5vh;
+  font-size: 16px;
+  /* font-weight: 500; */
+}
