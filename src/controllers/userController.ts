@@ -17,7 +17,7 @@ class UserController {
     }
 
     async login(req:Request, res:Response){
-        console.log(req.headers)
+        // console.log(req.headers)
         let checked= await userService.checkLogin(req.body)
         res.status(200).json(checked)
     }

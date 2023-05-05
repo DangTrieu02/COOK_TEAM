@@ -15,7 +15,6 @@ class UserController {
         res.status(200).json('tao oke');
     }
     async login(req, res) {
-        console.log(req.headers);
         let checked = await userService_1.default.checkLogin(req.body);
         res.status(200).json(checked);
     }
