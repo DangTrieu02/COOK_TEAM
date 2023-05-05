@@ -18,5 +18,8 @@ class UserController {
         let checked= await userService.checkLogin(req.body)
         res.status(200).json(checked)
     }
+    async update(req:Request, res:Response){
+        
+    }
 }
 export default new UserController();
