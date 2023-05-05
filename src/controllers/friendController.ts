@@ -16,6 +16,10 @@ class FriendController{
         let token = getToken(req,res)
         await friendService.create(token.id,req.query.id)
     }
+    
+    async confirm(req:Request, res:Response){
+        await friendService.confirm(req.query.id)
+    }
 }
 
 export default new FriendController();

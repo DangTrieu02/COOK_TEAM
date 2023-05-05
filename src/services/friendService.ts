@@ -10,8 +10,19 @@ class FriendService{
     async getAll(){
         return (await this.friendRepository.find());
     }
+
+    async waitList(id){
+        
+    }
+
     async create(user, friend){
         await this.friendRepository.save({user: user, friend: friend})
+    }
+    async confirm(id){
+        await this.friendRepository.update(id,{status:'bạn bè'})
+    }
+    async remove(id){
+
     }
 }
 export default new FriendService();
