@@ -6,5 +6,5 @@ import postRouter from "./postRouter";
 const router = Router();
 router.use('/auth',userRouter)
 router.use('/friend',friendRouter)
-router.use('post',postRouter)
+router.use('/post',postRouter)
 export default router;

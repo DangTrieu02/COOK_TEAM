@@ -29,6 +29,7 @@ class UserService {
         if(userFind.length!=0){
             let comparePassword= await bcrypt.compare(user.password,userFind[0].password) 
             if(comparePassword){
+
                 let payload={
                     name:userFind[0].name,
                     id:userFind[0].id

@@ -3,6 +3,7 @@ export declare class PostController {
     private postService;
     constructor();
     findAll: (req: Request, res: Response) => Promise<void>;
+    findToUser: (req: Request, res: Response) => Promise<void>;
     addPostToUser: (req: Request, res: Response) => Promise<void>;
     updatePostToUser: (req: Request, res: Response) => Promise<void>;
     deletePostToUser: (req: Request, res: Response) => Promise<void>;

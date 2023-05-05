@@ -16,8 +16,21 @@ class PostService {
         })
         return post
     }
+    getPostToUser = async (UserId)=>{
+        let post = await this.postRepository.find({
+            relations: {
+                user:true
+            },where:{
+                user: {
+                    id : UserId
+                }
+            }
+        })
+        return post
+    }
 
     addPost = async (post)=>{
+
         await this.postRepository.save(post)
     }
 

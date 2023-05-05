@@ -15,6 +15,18 @@ class PostService {
             });
             return post;
         };
+        this.getPostToUser = async (UserId) => {
+            let post = await this.postRepository.find({
+                relations: {
+                    user: true
+                }, where: {
+                    user: {
+                        id: UserId
+                    }
+                }
+            });
+            return post;
+        };
         this.addPost = async (post) => {
             await this.postRepository.save(post);
         };

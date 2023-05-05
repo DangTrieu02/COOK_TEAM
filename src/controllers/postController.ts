@@ -1,5 +1,6 @@
 import postService from "../services/postService";
 import {Request, Response} from "express";
+import {getToken} from "./base";
 
 export class PostController {
     private postService;
@@ -12,10 +13,17 @@ export class PostController {
         let listPost = await this.postService.getAllPost()
         res.status(200).json(listPost)
     }
+    findToUser = async (req:Request,res:Response)=>{
+        let token = getToken(req,res)
+        let userId = token.id
+        let listPostToUser = await this.postService.getPostToUser(userId)
+        res.status(200).json(listPostToUser)
+    }
     addPostToUser = async (req: Request, res: Response) => {
-
+        let token = getToken(req,res)
+        let userId = token.id
         let post = req.body
-        console.log("post:", post)
+        post.user = userId
         if (post.postContent || post.postImage) {
             await this.postService.addPost(post)
             res.status(200).json({

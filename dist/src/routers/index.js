@@ -10,6 +10,6 @@ const postRouter_1 = __importDefault(require("./postRouter"));
 const router = (0, express_1.Router)();
 router.use('/auth', userRouter_1.default);
 router.use('/friend', friendRouter_1.default);
-router.use('post', postRouter_1.default);
+router.use('/post', postRouter_1.default);
 exports.default = router;
 //# sourceMappingURL=index.js.map

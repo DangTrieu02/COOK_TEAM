@@ -13,7 +13,10 @@ export class Post{
     @Column({type:"text",nullable:true})
     postImage:string;
 
-    @Column({type:"date",default:()=>{"CURRENT_TIMESTAMP"}})
+    @Column({
+        default: ()=> 'CURRENT_TIMESTAMP',
+        name: 'time'
+    })
     time:Date;
 
     @ManyToOne(() => User, (user) => user.posts)
