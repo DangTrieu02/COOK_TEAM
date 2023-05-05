@@ -10,9 +10,8 @@ export class Like{
     likeTime:number;
     
     @ManyToOne(()=>Post,(post)=> post.comments)
-    post:Post;
+    post:Post; 
 
-    @OneToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(()=>User,(user)=> user.likes)
     user: User;
 }

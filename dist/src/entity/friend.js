@@ -19,14 +19,12 @@ __decorate([
     __metadata("design:type", Number)
 ], Friend.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => user_1.User),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", user_1.User)
+    (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.id),
+    __metadata("design:type", Array)
 ], Friend.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => user_1.User),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", user_1.User)
+    (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.id),
+    __metadata("design:type", Array)
 ], Friend.prototype, "friend", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "varchar", default: "not" }),

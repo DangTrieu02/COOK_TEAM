@@ -48,6 +48,15 @@ class UserService {
             return { message: "tai khoan khong ton tai" };
         }
     }
+    async updateName(id, name) {
+        await this.userRepository.update(id, { name: name });
+    }
+    async updateAvatar(id, avatar) {
+        await this.userRepository.update(id, { avatar: avatar });
+    }
+    async updateBackground(id, background) {
+        await this.userRepository.update(id, { background: background });
+    }
 }
 exports.default = new UserService();
 //# sourceMappingURL=userService.js.map

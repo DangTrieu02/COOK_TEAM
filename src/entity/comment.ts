@@ -11,4 +11,7 @@ export class Comment{
     
     @ManyToOne(() => Post, (post) => post.comments)
     post: Post
+
+    @ManyToOne(() => User, (user) => user.comments)
+    user: User;
 }

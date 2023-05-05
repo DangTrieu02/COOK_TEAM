@@ -1,7 +1,8 @@
-
 import {BaseEntity, Column, Entity,OneToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Post } from "./post"; 
-
+import { Like } from "./like";
+import { Comment } from './comment';
+import { Friend } from "./friend";
 @Entity()
 export class User{
     @PrimaryGeneratedColumn()
@@ -28,6 +29,13 @@ export class User{
     @Column({type:Date, nullable: true})
     birthday:Date
 
+    @OneToMany(()=> Like ,(like)=> like.user)
+    likes: Like[]
+
+    @OneToMany(()=> Comment ,(comment)=> comment.user)
+    comments: Comment[]
+
     @OneToMany(() => Post, (post) => post.user)
     posts: Post[]
+
 }

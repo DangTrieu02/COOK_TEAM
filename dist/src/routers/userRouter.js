@@ -10,5 +10,8 @@ let userRouter = express_1.default.Router();
 userRouter.get('/', auth_1.auth, userController_1.default.getAll);
 userRouter.post('/', auth_1.checkRegister, userController_1.default.register);
 userRouter.post('/login', userController_1.default.login);
+userRouter.patch('/name', userController_1.default.updateName);
+userRouter.patch('/avatar', userController_1.default.updateAvatar);
+userRouter.patch('/background', userController_1.default.updateBackground);
 exports.default = userRouter;
 //# sourceMappingURL=userRouter.js.map

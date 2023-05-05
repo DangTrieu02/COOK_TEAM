@@ -28,8 +28,7 @@ __decorate([
     __metadata("design:type", post_1.Post)
 ], Like.prototype, "post", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => user_1.User),
-    (0, typeorm_1.JoinColumn)(),
+    (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.likes),
     __metadata("design:type", user_1.User)
 ], Like.prototype, "user", void 0);
 Like = __decorate([
