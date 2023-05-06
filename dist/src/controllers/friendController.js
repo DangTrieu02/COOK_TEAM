@@ -11,6 +11,11 @@ class FriendController {
         let all = await friendService_1.default.getAll();
         res.status(200).json(all);
     }
+    async getFriendById(req, res) {
+        let token = await (0, base_1.getToken)(req, res);
+        let friendList = await friendService_1.default.getFriend(1);
+        res.status(200).json(friendList);
+    }
     async create(req, res) {
         let token = (0, base_1.getToken)(req, res);
         await friendService_1.default.create(token.id, req.query.id);
