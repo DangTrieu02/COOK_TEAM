@@ -10,10 +10,30 @@ class FriendService {
         this.friendRepository = data_source_1.default.getRepository(friend_1.Friend);
     }
     async getAll() {
-        return (await this.friendRepository.find());
+        return (await this.friendRepository.find({
+            relations: {
+                user: true,
+                friend: true
+            }
+        }));
+    }
+    async waitList(friend) {
+        return (await this.friendRepository.find({
+            relations: {
+                user: true,
+                friend: true
+            },
+            where: { friend: { id: friend.id }, status: "not" }
+        }));
     }
     async create(user, friend) {
         await this.friendRepository.save({ user: user, friend: friend });
+    }
+    async confirm(id) {
+        await this.friendRepository.update(id, { status: 'bạn bè' });
+    }
+    async remove(id) {
+        await this.friendRepository.delete({ id });
     }
 }
 exports.default = new FriendService();

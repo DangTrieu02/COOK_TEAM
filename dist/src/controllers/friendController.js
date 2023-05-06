@@ -14,6 +14,19 @@ class FriendController {
     async create(req, res) {
         let token = (0, base_1.getToken)(req, res);
         await friendService_1.default.create(token.id, req.query.id);
+        res.status(200).json({ message: "thêm thành công !" });
+    }
+    async confirm(req, res) {
+        await friendService_1.default.confirm(req.query.id);
+        res.status(200).json({ message: "đã xác nhận !" });
+    }
+    async waitList(req, res) {
+        let token = (0, base_1.getToken)(req, res);
+        res.status(200).json(await friendService_1.default.waitList(token));
+    }
+    async remove(req, res) {
+        await friendService_1.default.remove(req.query.id);
+        res.status(200).json({ message: "xóa thành công !" });
     }
 }
 exports.default = new FriendController();

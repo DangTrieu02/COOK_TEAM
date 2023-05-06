@@ -6,10 +6,10 @@ export class Friend{
     id:number;
     
     @ManyToOne(()=>User,(user)=> user.id)
-    user: User[];
+    user: User;
 
     @ManyToOne(()=>User,(user)=> user.id)
-    friend : User[];
+    friend : User;
 
     @Column({type: "varchar",default:"not"})
     status:string;

@@ -4,5 +4,8 @@ let friendRouter = express.Router();
 
 friendRouter.get('/',friendController.getAll)
 friendRouter.post('/',friendController.create)
+friendRouter.get('/wait',friendController.waitList)
+friendRouter.patch('/',friendController.confirm)
+friendRouter.delete('/',friendController.remove)
 
 export default friendRouter

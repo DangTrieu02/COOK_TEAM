@@ -15,10 +15,20 @@ class FriendController{
     async create(req:Request, res:Response){
         let token = getToken(req,res)
         await friendService.create(token.id,req.query.id)
+        res.status(200).json({message:"thêm thành công !"})
     }
-    
     async confirm(req:Request, res:Response){
         await friendService.confirm(req.query.id)
+        res.status(200).json({message:"đã xác nhận !"})
+
+    }
+    async waitList(req:Request, res:Response){
+        let token = getToken(req,res)
+        res.status(200).json(await friendService.waitList(token))
+    }
+    async remove(req:Request, res:Response){
+        await friendService.remove(req.query.id)
+        res.status(200).json({message:"xóa thành công !"})
     }
 }
 
