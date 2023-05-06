@@ -10,7 +10,7 @@ export declare class User {
     background: string;
     gender: string;
     birthday: Date;
-    likes: Like[];
-    comments: Comment[];
-    posts: Post[];
+    likes: Like;
+    comments: Comment;
+    posts: Post;
 }

@@ -50,15 +50,15 @@ __decorate([
 ], User.prototype, "birthday", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => like_1.Like, (like) => like.user),
-    __metadata("design:type", Array)
+    __metadata("design:type", like_1.Like)
 ], User.prototype, "likes", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => comment_1.Comment, (comment) => comment.user),
-    __metadata("design:type", Array)
+    __metadata("design:type", comment_1.Comment)
 ], User.prototype, "comments", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => post_1.Post, (post) => post.user),
-    __metadata("design:type", Array)
+    __metadata("design:type", post_1.Post)
 ], User.prototype, "posts", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()

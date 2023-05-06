@@ -30,12 +30,12 @@ export class User{
     birthday:Date
 
     @OneToMany(()=> Like ,(like)=> like.user)
-    likes: Like[]
+    likes: Like
 
     @OneToMany(()=> Comment ,(comment)=> comment.user)
-    comments: Comment[]
+    comments: Comment
 
     @OneToMany(() => Post, (post) => post.user)
-    posts: Post[]
+    posts: Post
 
 }

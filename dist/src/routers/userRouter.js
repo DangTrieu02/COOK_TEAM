@@ -8,6 +8,7 @@ const userController_1 = __importDefault(require("../controllers/userController"
 const auth_1 = require("../middlewares/auth");
 let userRouter = express_1.default.Router();
 userRouter.get('/', auth_1.auth, userController_1.default.getAll);
+userRouter.get('/user', userController_1.default.findOne);
 userRouter.post('/', auth_1.checkRegister, userController_1.default.register);
 userRouter.post('/login', userController_1.default.login);
 userRouter.patch('/name', userController_1.default.updateName);

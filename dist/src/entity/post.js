@@ -29,9 +29,7 @@ __decorate([
     __metadata("design:type", String)
 ], Post.prototype, "postImage", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "date", default: () => {
-            "CURRENT_TIMESTAMP";
-        } }),
+    (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Post.prototype, "time", void 0);
 __decorate([

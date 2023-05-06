@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity,OneToMany ,ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity,OneToMany ,ManyToOne, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm";
 import { User } from "./user";
 import { Comment } from "./comment";
 import { Like } from "./like";
@@ -13,7 +13,7 @@ export class Post{
     @Column({type:"text",nullable:true})
     postImage:string;
 
-    @Column({type:"date",default:()=>{"CURRENT_TIMESTAMP"}})
+    @CreateDateColumn()
     time:Date;
 
     @ManyToOne(() => User, (user) => user.posts)
