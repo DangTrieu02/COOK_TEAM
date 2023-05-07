@@ -9,6 +9,7 @@ class LikeController {
     constructor() { }
     async getAll(req, res) {
         let all = await likeService_1.default.getAll(+req.query.id);
+        console.log(all);
         res.status(200).json(all);
     }
     async createLike(req, res) {
