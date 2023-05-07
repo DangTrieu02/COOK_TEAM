@@ -2,14 +2,11 @@ import {OneToOne, Column,JoinTable,JoinColumn, Entity, PrimaryGeneratedColumn, M
 import { Post } from "./post";
 import { User } from "./user";
 @Entity()
-export class Like{
+export class Likepost{
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({type: "int",default:1})
-    likeTime:number;
-    
-    @ManyToOne(()=>Post,(post)=> post.comments)
+    @ManyToOne(()=>Post,(post)=> post.likes)
     post:Post; 
 
     @ManyToOne(()=>User,(user)=> user.likes)

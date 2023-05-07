@@ -21,14 +21,21 @@ class UserController {
     async updateName(req, res) {
         let id = req.query.id;
         await userService_1.default.updateName(id, req.body.name);
+        res.status(200).json({ message: "cập nhật hoàn tất " });
     }
     async updateAvatar(req, res) {
         let id = req.query.id;
         await userService_1.default.updateAvatar(id, req.body.name);
+        res.status(200).json({ message: "cập nhật hoàn tất " });
     }
     async updateBackground(req, res) {
         let id = req.query.id;
         await userService_1.default.updateBackground(id, req.body.name);
+        res.status(200).json({ message: "cập nhật hoàn tất " });
+    }
+    async findOne(req, res) {
+        let user = await userService_1.default.getById(req.query.id);
+        res.status(200).json(user);
     }
 }
 exports.default = new UserController();

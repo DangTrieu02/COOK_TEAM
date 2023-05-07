@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => like_1.Like, (like) => like.post),
+    (0, typeorm_1.OneToMany)(() => like_1.Likepost, (likepost) => likepost.post),
     __metadata("design:type", Array)
 ], Post.prototype, "likes", void 0);
 Post = __decorate([

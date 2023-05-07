@@ -4,6 +4,7 @@ import { checkRegister,auth} from '../middlewares/auth';
 let userRouter = express.Router();
 
 userRouter.get('/',auth,userController.getAll)
+userRouter.get('/user',userController.findOne)
 userRouter.post('/',checkRegister,userController.register)
 userRouter.post('/login',userController.login)
 userRouter.patch('/name',userController.updateName)

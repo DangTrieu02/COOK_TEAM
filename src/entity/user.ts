@@ -1,6 +1,6 @@
 import {BaseEntity, Column, Entity,OneToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Post } from "./post"; 
-import { Like } from "./like";
+import { Likepost } from "./like";
 import { Comment } from './comment';
 import { Friend } from "./friend";
 @Entity()
@@ -29,13 +29,13 @@ export class User{
     @Column({type:Date, nullable: true})
     birthday:Date
 
-    @OneToMany(()=> Like ,(like)=> like.user)
-    likes: Like[]
+    @OneToMany(()=> Likepost ,(likepost)=> likepost.user)
+    likes: Likepost
 
     @OneToMany(()=> Comment ,(comment)=> comment.user)
-    comments: Comment[]
+    comments: Comment
 
     @OneToMany(() => Post, (post) => post.user)
-    posts: Post[]
+    posts: Post
 
 }

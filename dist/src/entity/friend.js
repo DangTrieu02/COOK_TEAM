@@ -20,11 +20,11 @@ __decorate([
 ], Friend.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.id),
-    __metadata("design:type", Array)
+    __metadata("design:type", user_1.User)
 ], Friend.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.id),
-    __metadata("design:type", Array)
+    __metadata("design:type", user_1.User)
 ], Friend.prototype, "friend", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "varchar", default: "not" }),

@@ -25,18 +25,24 @@ class UserController {
     async updateName(req:Request, res:Response){
         let id = req.query.id
         await userService.updateName(id, req.body.name)
+        res.status(200).json({message:"cập nhật hoàn tất "})
     }
 
     async updateAvatar(req:Request, res:Response){
         let id = req.query.id
         await userService.updateAvatar(id, req.body.name)
+        res.status(200).json({message:"cập nhật hoàn tất "})
     }
     
     async updateBackground(req:Request, res:Response){
         let id = req.query.id
         await userService.updateBackground(id, req.body.name)
+        res.status(200).json({message:"cập nhật hoàn tất "})
     }
-
+    async findOne(req:Request, res:Response){
+        let user= await userService.getById(req.query.id)
+        res.status(200).json(user)
+    }
     
 }
 export default new UserController();
