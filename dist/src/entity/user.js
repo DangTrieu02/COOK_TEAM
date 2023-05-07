@@ -49,8 +49,8 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "birthday", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => like_1.Like, (like) => like.user),
-    __metadata("design:type", like_1.Like)
+    (0, typeorm_1.OneToMany)(() => like_1.Likepost, (likepost) => likepost.user),
+    __metadata("design:type", like_1.Likepost)
 ], User.prototype, "likes", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => comment_1.Comment, (comment) => comment.user),

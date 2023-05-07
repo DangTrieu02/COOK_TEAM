@@ -1,5 +1,5 @@
 import { Post } from "./post";
-import { Like } from "./like";
+import { Likepost } from "./like";
 import { Comment } from './comment';
 export declare class User {
     id: number;
@@ -10,7 +10,7 @@ export declare class User {
     background: string;
     gender: string;
     birthday: Date;
-    likes: Like;
+    likes: Likepost;
     comments: Comment;
     posts: Post;
 }
