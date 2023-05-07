@@ -7,8 +7,6 @@ exports.PostController = void 0;
 const postService_1 = __importDefault(require("../services/postService"));
 const base_1 = require("./base");
 const likeService_1 = __importDefault(require("../services/likeService"));
-const data_source_1 = __importDefault(require("../data-source"));
-const like_1 = require("../entity/like");
 class PostController {
     constructor() {
         this.findAll = async (req, res) => {
@@ -73,18 +71,27 @@ class PostController {
             }
         };
         this.updateLike = async (req, res) => {
-            let token = (0, base_1.getToken)(req, res);
-            let IdUser = token.id;
-            console.log(IdUser, 'idUser');
-            console.log(await data_source_1.default.createQueryBuilder()
-                .update(like_1.Like)
-                .set({ isLiked: 1 })
-                .where("userId = :id", { id: IdUser })
-                .andWhere("statusOrder = 0")
-                .execute());
-            res.status(200).json({
-                message: "Update like successfully "
-            });
+            try {
+                const token = (0, base_1.getToken)(req, res);
+                const userId = token.id;
+                const postId = req.params.id;
+                console.log(userId, 'userId');
+                console.log(postId, 'postId');
+                const like = await this.likeService.findUserIdandPostId(userId, postId);
+                like.isLiked = (like.isLiked === 0) ? 1 : 0;
+                console.log(like.isLiked, "like");
+                await this.likeService.save(like);
+                res.status(200).json({
+                    message: 'Update like successfully',
+                    data: { isLiked: like.isLiked },
+                });
+            }
+            catch (err) {
+                console.error(err);
+                res.status(400).json({
+                    message: 'Internal server error',
+                });
+            }
         };
         this.deletePostToUser = async (req, res) => {
             let id = req.params.id;

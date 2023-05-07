@@ -26,6 +26,12 @@ class LikeService {
         const postLike = await this.likeRepository.query(sqlQuery, [postId]);
         return postLike
     }
+    findUserIdandPostId =async (userId, postId)=>{
+       let postLike = await this.likeRepository.findOneOrFail({
+            where: { user: userId, post: postId },
+        });
+        return postLike[0]
+    }
 }
 
 

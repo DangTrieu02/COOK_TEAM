@@ -3,7 +3,6 @@ export declare class PostController {
     private postService;
     private likeService;
     constructor();
-    javascript: any;
     findAll: (req: Request, res: Response) => Promise<void>;
     findToUser: (req: Request, res: Response) => Promise<void>;
     addPostToUser: (req: Request, res: Response) => Promise<void>;

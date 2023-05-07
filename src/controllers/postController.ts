@@ -14,7 +14,6 @@ export class PostController {
         this.likeService = likeService;
     }
 
-    javascript
     findAll = async (req: Request, res: Response) => {
         try {
             let listPost = await this.postService.getAllPost()
@@ -78,19 +77,30 @@ export class PostController {
         }
     }
     updateLike = async (req: Request, res: Response) => {
-        let token = getToken(req,res)
-        let IdUser = token.id
-        console.log(IdUser,'idUser');
-        console.log(await AppDataSource.createQueryBuilder()
-            .update(Like)
-            .set({ isLiked: 1 })
-            .where("userId = :id", { id: IdUser })
-            .andWhere("statusOrder = 0")
-            .execute())
-        res.status(200).json({
-            message: "Update like successfully "
-        })
-    }
+        try {
+            const token = getToken(req, res);
+            const userId = token.id;
+            const postId = req.params.id
+            console.log(userId,'userId')
+            console.log(postId,'postId')
+            const like = await this.likeService.findUserIdandPostId(userId,postId)
+
+            // Toggle the isLiked status
+            like.isLiked =  (like.isLiked === 0) ? 1 : 0;
+            console.log( like.isLiked,"like")
+            await this.likeService.save(like);
+
+            res.status(200).json({
+                message: 'Update like successfully',
+                data: { isLiked: like.isLiked },
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(400).json({
+                message: 'Internal server error',
+            });
+        }
+    };
     deletePostToUser = async (req:Request, res:Response)=>{
         let id = req.params.id;
         console.log("id del : ", id)
