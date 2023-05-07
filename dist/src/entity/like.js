@@ -20,11 +20,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Like.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "int", default: 1 }),
+    (0, typeorm_1.Column)({
+        type: "tinyint",
+        default: 0
+    }),
     __metadata("design:type", Number)
-], Like.prototype, "likeTime", void 0);
+], Like.prototype, "isLiked", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => post_1.Post, (post) => post.comments),
+    (0, typeorm_1.ManyToOne)(() => post_1.Post, (post) => post.likes),
     __metadata("design:type", post_1.Post)
 ], Like.prototype, "post", void 0);
 __decorate([
