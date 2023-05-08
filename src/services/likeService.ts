@@ -1,12 +1,11 @@
 import AppDataSource from "../data-source";
 import { Likepost } from "../entity/like";
-import {Like} from "../entity/like";
+
 class likeService{
     private likePostRepository
     private likeRepository;
     constructor(){
         this.likePostRepository = AppDataSource.getRepository(Likepost)
-        this.likeRepository = AppDataSource.getRepository(Like)
     }
     async getAll(post){
         return await this.likePostRepository.find({

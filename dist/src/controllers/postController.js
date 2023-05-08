@@ -16,6 +16,7 @@ class PostController {
                 let totalLikes = [];
                 for (let item of listPost) {
                     const postId = item.id;
+                    console.log(postId, "postID");
                     const likes = await this.likeService.getLikeToPost(postId);
                     totalLikes.push(likes);
                 }

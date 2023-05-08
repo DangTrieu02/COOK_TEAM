@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const likeService_1 = __importDefault(require("../services/likeService"));
 const base_1 = require("./base");
 class LikeController {
-    constructor() { }
+    constructor() {
+    }
     async getAll(req, res) {
         let all = await likeService_1.default.getAll(+req.query.id);
         console.log(all);

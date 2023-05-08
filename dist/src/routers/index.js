@@ -13,6 +13,7 @@ const router = (0, express_1.Router)();
 router.use('/auth', userRouter_1.default);
 router.use('/friend', friendRouter_1.default);
 router.use('/post', postRouter_1.default);
+router.use('/like', likeRouter_1.default);
 router.use('/comment', commentRouter_1.default);
 router.use('/like', likeRouter_1.default);
 exports.default = router;

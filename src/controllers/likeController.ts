@@ -3,7 +3,9 @@ import { Request,Response } from "express";
 import { getToken } from "./base";
 
 class LikeController{
-    constructor(){}
+    constructor(){
+
+    }
     async getAll(req:Request, res:Response){
         let all= await likeService.getAll(+req.query.id);
         console.log(all)

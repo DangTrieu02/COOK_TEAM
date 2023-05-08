@@ -2,7 +2,6 @@ import {Router} from "express";
 import {auth} from "../middlewares/auth";
 import postController from "../controllers/postController";
 import likeController from "../controllers/likeController";
-import {Router} from "express";
 const likeRouter = Router()
 
 
