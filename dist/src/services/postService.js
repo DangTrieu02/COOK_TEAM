@@ -5,13 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const data_source_1 = __importDefault(require("../data-source"));
 const post_1 = require("../entity/post");
+const typeorm_1 = require("typeorm");
 class PostService {
     constructor() {
-        this.getAllPost = async () => {
+        this.getAllPost = async (UserId) => {
             let posts = await this.postRepository.find({
                 relations: {
                     user: true,
                     likes: true,
+                }, where: {
+                    user: {
+                        id: (0, typeorm_1.In)([UserId, 4])
+                    }
                 }
             });
             return posts;

@@ -10,8 +10,10 @@ const likeService_1 = __importDefault(require("../services/likeService"));
 class PostController {
     constructor() {
         this.findAll = async (req, res) => {
+            let token = (0, base_1.getToken)(req, res);
+            let userId = token.id;
             try {
-                let listPost = await this.postService.getAllPost();
+                let listPost = await this.postService.getAllPost(userId);
                 console.log(listPost, "listPost");
                 let totalLikes = [];
                 for (let item of listPost) {
@@ -35,6 +37,14 @@ class PostController {
             let token = (0, base_1.getToken)(req, res);
             let userId = token.id;
             let listPostToUser = await this.postService.getPostToUser(userId);
+            let totalLikes = [];
+            for (let item of listPostToUser) {
+                const postId = item.id;
+                console.log(postId, "postID");
+                const likes = await this.likeService.getLikeToPost(postId);
+                totalLikes.push(likes);
+            }
+            console.log('totalLike', totalLikes);
             res.status(200).json(listPostToUser);
         };
         this.addPostToUser = async (req, res) => {

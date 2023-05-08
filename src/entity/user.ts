@@ -37,5 +37,6 @@ export class User{
 
     @OneToMany(() => Post, (post) => post.user)
     posts: Post
-
+    // @OneToMany (()=>Friend, (friend) => friend.user)
+    // friend : Friend
 }

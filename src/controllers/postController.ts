@@ -13,10 +13,11 @@ export class PostController {
     }
 
     findAll = async (req: Request, res: Response) => {
+        let token = getToken(req,res)
+        let userId = token.id
         try {
-            let listPost = await this.postService.getAllPost()
+            let listPost = await this.postService.getAllPost(userId)
             console.log(listPost,"listPost")
-
             let totalLikes = []
             for (let item of listPost) {
                 const postId = item.id
@@ -25,7 +26,6 @@ export class PostController {
                 totalLikes.push(likes)
             }
             console.log('totoLike',totalLikes)
-
             res.status(200).json({
                 listPost,
                 totalLikes
@@ -40,6 +40,14 @@ export class PostController {
         let token = getToken(req,res)
         let userId = token.id
         let listPostToUser = await this.postService.getPostToUser(userId)
+        let totalLikes = []
+        for (let item of listPostToUser) {
+            const postId = item.id
+            console.log(postId,"postID")
+            const likes = await this.likeService.getLikeToPost(postId)
+            totalLikes.push(likes)
+        }
+        console.log('totalLike',totalLikes)
         res.status(200).json(listPostToUser)
     }
     addPostToUser = async (req: Request, res: Response) => {
