@@ -8,12 +8,13 @@ const post_1 = require("../entity/post");
 class PostService {
     constructor() {
         this.getAllPost = async () => {
-            let post = await this.postRepository.find({
+            let posts = await this.postRepository.find({
                 relations: {
-                    user: true
+                    user: true,
+                    likes: true,
                 }
             });
-            return post;
+            return posts;
         };
         this.getPostToUser = async (UserId) => {
             let post = await this.postRepository.find({

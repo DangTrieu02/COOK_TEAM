@@ -5,6 +5,12 @@ import { User } from "./user";
 export class Likepost{
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column({
+        type: "tinyint",
+        default: 0 // giá trị mặc định là 0
+    })
+    isLiked: number;
     
     @ManyToOne(()=>Post,(post)=> post.likes)
     post:Post; 

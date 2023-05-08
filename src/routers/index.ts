@@ -9,6 +9,7 @@ const router = Router();
 router.use('/auth',userRouter)
 router.use('/friend',friendRouter)
 router.use('/post',postRouter)
+router.use('/like',likeRouter)
 router.use('/comment',commentRouter)
 router.use('/like',likeRouter)
 export default router;

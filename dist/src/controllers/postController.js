@@ -6,11 +6,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostController = void 0;
 const postService_1 = __importDefault(require("../services/postService"));
 const base_1 = require("./base");
+const likeService_1 = __importDefault(require("../services/likeService"));
 class PostController {
     constructor() {
         this.findAll = async (req, res) => {
-            let listPost = await this.postService.getAllPost();
-            res.status(200).json(listPost);
+            try {
+                let listPost = await this.postService.getAllPost();
+                console.log(listPost, "listPost");
+                let totalLikes = [];
+                for (let item of listPost) {
+                    const postId = item.id;
+                    const likes = await this.likeService.getLikeToPost(postId);
+                    totalLikes.push(likes);
+                }
+                console.log('totoLike', totalLikes);
+                res.status(200).json({
+                    listPost,
+                    totalLikes
+                });
+            }
+            catch (error) {
+                console.error(error);
+                res.status(400).json({ message: 'Internal server error' });
+            }
         };
         this.findToUser = async (req, res) => {
             let token = (0, base_1.getToken)(req, res);
@@ -36,6 +54,7 @@ class PostController {
             }
         };
         this.updatePostToUser = async (req, res) => {
+            console.log(req['decode']);
             let id = req.params.id;
             console.log("id update : ", id);
             let postNow = req.body;
@@ -48,6 +67,29 @@ class PostController {
                 await this.postService.updatePost(id, postNow);
                 res.status(200).json({
                     message: "Update successfully "
+                });
+            }
+        };
+        this.updateLike = async (req, res) => {
+            try {
+                const token = (0, base_1.getToken)(req, res);
+                const userId = token.id;
+                const postId = req.params.id;
+                console.log(userId, 'userId');
+                console.log(postId, 'postId');
+                const like = await this.likeService.findUserIdandPostId(userId, postId);
+                like.isLiked = (like.isLiked === 0) ? 1 : 0;
+                console.log(like.isLiked, "like");
+                await this.likeService.save(like);
+                res.status(200).json({
+                    message: 'Update like successfully',
+                    data: { isLiked: like.isLiked },
+                });
+            }
+            catch (err) {
+                console.error(err);
+                res.status(400).json({
+                    message: 'Internal server error',
                 });
             }
         };
@@ -67,6 +109,7 @@ class PostController {
             }
         };
         this.postService = postService_1.default;
+        this.likeService = likeService_1.default;
     }
 }
 exports.PostController = PostController;

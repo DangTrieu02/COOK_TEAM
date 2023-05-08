@@ -8,14 +8,16 @@ class PostService {
         this.postRepository = AppDataSource.getRepository(Post)
     }
 
-    getAllPost = async() =>{
-        let post = await this.postRepository.find({
+    getAllPost = async() => {
+        let posts = await this.postRepository.find({
             relations: {
-                user:true
+                user:true,
+                likes:true,
             }
         })
-        return post
+        return posts
     }
+
     getPostToUser = async (UserId)=>{
         let post = await this.postRepository.find({
             relations: {
