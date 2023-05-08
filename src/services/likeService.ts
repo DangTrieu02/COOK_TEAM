@@ -3,7 +3,6 @@ import { Likepost } from "../entity/like";
 
 class likeService{
     private likePostRepository
-    private likeRepository;
     constructor(){
         this.likePostRepository = AppDataSource.getRepository(Likepost)
     }
@@ -35,25 +34,15 @@ class likeService{
         await this.likePostRepository.delete(likeToDelete);
     }
     getLikeToPost = async (postId) => {
-        //    let isLike =  await this.likeRepository.find({
-        //         relations : {
-        //             post:true
-        //         }, where:{
-        //             userId:userId,
-        //             postId:postId,
-        //
-        //         }
-        //     })
-        // }
         const sqlQuery = `select count(isLiked) as 'totalLike'
                           from \`like\`
                           where postId = ?
                             and isLiked = 1`;
-        const postLike = await this.likeRepository.query(sqlQuery, [postId]);
+        const postLike = await this.likePostRepository.query(sqlQuery, [postId]);
         return postLike
     }
     findUserIdandPostId =async (userId, postId)=>{
-        let postLike = await this.likeRepository.findOneOrFail({
+        let postLike = await this.likePostRepository.findOneOrFail({
             where: { user: userId, post: postId },
         });
         return postLike[0]

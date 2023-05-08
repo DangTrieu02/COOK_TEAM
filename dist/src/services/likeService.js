@@ -12,11 +12,11 @@ class likeService {
                           from \`like\`
                           where postId = ?
                             and isLiked = 1`;
-            const postLike = await this.likeRepository.query(sqlQuery, [postId]);
+            const postLike = await this.likePostRepository.query(sqlQuery, [postId]);
             return postLike;
         };
         this.findUserIdandPostId = async (userId, postId) => {
-            let postLike = await this.likeRepository.findOneOrFail({
+            let postLike = await this.likePostRepository.findOneOrFail({
                 where: { user: userId, post: postId },
             });
             return postLike[0];

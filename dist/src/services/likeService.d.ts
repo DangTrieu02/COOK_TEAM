@@ -1,6 +1,5 @@
 declare class likeService {
     private likePostRepository;
-    private likeRepository;
     constructor();
     getAll(post: any): Promise<any>;
     likeOrNot(user: any, post: any): Promise<any>;
