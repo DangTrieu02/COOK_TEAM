@@ -5,14 +5,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostController = void 0;
 const postService_1 = __importDefault(require("../services/postService"));
+const base_1 = require("./base");
+const friendService_1 = __importDefault(require("../services/friendService"));
 class PostController {
     constructor() {
         this.findAll = async (req, res) => {
-            let listPost = await this.postService.getAllPost();
+            let token = await (0, base_1.getToken)(req, res);
+            let isHasFriend = await friendService_1.default.isHasFriend(token.id);
+            let listPost = await this.postService.getPost(token.id, isHasFriend);
             res.status(200).json(listPost);
         };
         this.addPostToUser = async (req, res) => {
             let post = req.body;
+            post.user = await (0, base_1.getToken)(req, res);
             console.log("post:", post);
             if (post.postContent || post.postImage) {
                 await this.postService.addPost(post);

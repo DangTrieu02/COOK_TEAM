@@ -14,5 +14,6 @@ userRouter.post('/login', userController_1.default.login);
 userRouter.patch('/name', userController_1.default.updateName);
 userRouter.patch('/avatar', userController_1.default.updateAvatar);
 userRouter.patch('/background', userController_1.default.updateBackground);
+userRouter.get('/home', userController_1.default.getUser);
 exports.default = userRouter;
 //# sourceMappingURL=userRouter.js.map

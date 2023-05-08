@@ -1,6 +1,7 @@
 declare class PostService {
     private postRepository;
     constructor();
+    getPost(user: any, isHasFriend: any): Promise<any>;
     getAllPost: () => Promise<any>;
     addPost: (post: any) => Promise<void>;
     updatePost: (id: any, updateNow: any) => Promise<void>;

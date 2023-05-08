@@ -1,20 +1,25 @@
+
 import postService from "../services/postService";
 import {Request, Response} from "express";
+import { getToken } from "./base";
+import friendService from "../services/friendService";
 
 export class PostController {
-    private postService;
+    private postService ;
 
     constructor() {
         this.postService = postService
     }
 
     findAll = async (req: Request, res: Response) => {
-        let listPost = await this.postService.getAllPost()
+        let token = await getToken(req, res);
+        let isHasFriend = await friendService.isHasFriend(token.id)
+        let listPost = await this.postService.getPost(token.id,isHasFriend)
         res.status(200).json(listPost)
     }
     addPostToUser = async (req: Request, res: Response) => {
-
-        let post = req.body
+        let post = req.body 
+        post.user= await getToken(req,res)
         console.log("post:", post)
         if (post.postContent || post.postImage) {
             await this.postService.addPost(post)

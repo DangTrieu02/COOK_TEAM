@@ -13,4 +13,5 @@ export class Friend{
 
     @Column({type: "varchar",default:"not"})
     status:string;
+    
 }
