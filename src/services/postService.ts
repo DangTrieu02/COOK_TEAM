@@ -10,14 +10,15 @@ class PostService {
     }
     
     async getPost(user,isHasFriend){
+        console.log(isHasFriend)
         if(isHasFriend){
             return await this.postRepository.query(`
-            SELECT DISTINCT p.*, u.name , u.avatar
-            FROM post p
-            JOIN user u ON p.id = u.id
-            JOIN friend f ON p.id = f.id  OR p.userId = f.friendId and f.status='bạn bè'
-            WHERE u.id = ${user} OR (f.userId = ${user} OR f.friendId = ${user})
-            ORDER BY p.time DESC;
+                SELECT DISTINCT p.*, u.name , u.avatar
+                FROM post p
+                         JOIN user u ON p.userId = u.id
+                         JOIN friend f ON p.userId = f.friendId  OR p.userId = f.userId and f.status='bạn bè'
+                WHERE u.id = ${user} OR (f.userId = ${user} OR f.friendId = ${user})
+                ORDER BY p.time DESC;
             `)
         }else{
             return await this.postRepository.query(`
@@ -27,14 +28,14 @@ class PostService {
         }
     }
 
-    getAllPost = async (UserId) => {
+    getPostUserAndFriend = async (UserId,friendId) => {
         let posts = await this.postRepository.find({
             relations: {
                 user: true,
                 likes: true,
             }, where: {
                 user: {
-                    id: In([UserId, 4])
+                    id: In([UserId, friendId])
                 }
             }
         })

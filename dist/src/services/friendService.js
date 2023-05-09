@@ -60,7 +60,7 @@ class FriendService {
         let result = await this.friendRepository.query(`
         SELECT * FROM friend WHERE (userId = ${id} OR friendId =${id}) AND status = 'bạn bè';`);
         if (result.length != 0) {
-            return true;
+            return result;
         }
         else {
             return false;

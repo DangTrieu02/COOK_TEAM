@@ -9,7 +9,7 @@ declare class FriendService {
     create(user: any, friend: any): Promise<void>;
     confirm(id: any): Promise<void>;
     remove(id: any): Promise<void>;
-    isHasFriend(id: any): Promise<boolean>;
+    isHasFriend(id: any): Promise<any>;
 }
 declare const _default: FriendService;
 export default _default;
