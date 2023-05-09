@@ -45,6 +45,24 @@ class PostService {
         };
         this.postRepository = data_source_1.default.getRepository(post_1.Post);
     }
+    async getPost(user, isHasFriend) {
+        if (isHasFriend) {
+            return await this.postRepository.query(`
+            SELECT DISTINCT p.*, u.name , u.avatar
+            FROM post p
+            JOIN user u ON p.id = u.id
+            JOIN friend f ON p.id = f.id  OR p.userId = f.friendId and f.status='bạn bè'
+            WHERE u.id = ${user} OR (f.userId = ${user} OR f.friendId = ${user})
+            ORDER BY p.time DESC;
+            `);
+        }
+        else {
+            return await this.postRepository.query(`
+            select post.* , user.name, user.avatar from post
+            join user on post.userId = user.id
+            where post.userId = ${user}`);
+        }
+    }
 }
 exports.default = new PostService();
 //# sourceMappingURL=postService.js.map

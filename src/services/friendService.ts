@@ -16,18 +16,15 @@ class FriendService{
             }
         }));
     }
-
-async getFriends(id) {
-    let friend = await this.userRepository.query(`
-    SELECT user.*
-    FROM user
-    JOIN friend ON (friend.friendId = user.id AND friend.userId = ${id} AND friend.status = 'bạn bè')
-    OR (friend.userId = user.id AND friend.friendId = ${id} AND friend.status = 'bạn bè')
-    WHERE user.id != ${id}`)
-    return friend;
-}
-
-
+    async getFriends(id) {
+        let friend = await this.userRepository.query(`
+        SELECT user.*
+        FROM user
+        JOIN friend ON (friend.friendId = user.id AND friend.userId = ${id} AND friend.status = 'bạn bè')
+        OR (friend.userId = user.id AND friend.friendId = ${id} AND friend.status = 'bạn bè')
+        WHERE user.id != ${id}`)
+        return friend;
+    }
     async getFriend(id) {
         const friends = await this.friendRepository.find({
           where: [
@@ -37,8 +34,7 @@ async getFriends(id) {
           relations: ['user', 'friend']
         });
         return friends;
-      }
-      
+      }     
     async waitList(friend){
         return (await this.friendRepository.find({
             relations: {
@@ -48,7 +44,6 @@ async getFriends(id) {
             where:{friend:{id:friend.id},status:"not"}
         }))
     }
-
     async create(user, friend){
         await this.friendRepository.save({user: user, friend: friend})
     }
@@ -57,6 +52,15 @@ async getFriends(id) {
     }
     async remove(id){
         await this.friendRepository.delete({id})
+    }
+    async isHasFriend(id){
+        let result= await this.friendRepository.query(`
+        SELECT * FROM friend WHERE (userId = ${id} OR friendId =${id}) AND status = 'bạn bè';`)
+        if(result.length!=0){
+            return true
+        }else{
+            return false;
+        }
     }
 }
 export default new FriendService();

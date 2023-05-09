@@ -21,11 +21,11 @@ class FriendService {
     }
     async getFriends(id) {
         let friend = await this.userRepository.query(`
-    SELECT user.*
-    FROM user
-    JOIN friend ON (friend.friendId = user.id AND friend.userId = ${id} AND friend.status = 'bạn bè')
-    OR (friend.userId = user.id AND friend.friendId = ${id} AND friend.status = 'bạn bè')
-    WHERE user.id != ${id}`);
+        SELECT user.*
+        FROM user
+        JOIN friend ON (friend.friendId = user.id AND friend.userId = ${id} AND friend.status = 'bạn bè')
+        OR (friend.userId = user.id AND friend.friendId = ${id} AND friend.status = 'bạn bè')
+        WHERE user.id != ${id}`);
         return friend;
     }
     async getFriend(id) {
@@ -55,6 +55,16 @@ class FriendService {
     }
     async remove(id) {
         await this.friendRepository.delete({ id });
+    }
+    async isHasFriend(id) {
+        let result = await this.friendRepository.query(`
+        SELECT * FROM friend WHERE (userId = ${id} OR friendId =${id}) AND status = 'bạn bè';`);
+        if (result.length != 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 exports.default = new FriendService();

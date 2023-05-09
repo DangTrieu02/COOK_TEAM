@@ -10,4 +10,6 @@ userRouter.post('/login',userController.login)
 userRouter.patch('/name',userController.updateName)
 userRouter.patch('/avatar',userController.updateAvatar)
 userRouter.patch('/background',userController.updateBackground)
+userRouter.get('/home',userController.getUser)
+
 export default userRouter;

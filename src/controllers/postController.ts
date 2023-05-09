@@ -4,6 +4,8 @@ import {getToken} from "./base";
 import likeService from "../services/likeService";
 import AppDataSource from "../data-source";
 import {Likepost} from "../entity/likepost";
+import { getToken } from "./base";
+import friendService from "../services/friendService";
 
 export class PostController {
     private postService;
@@ -134,8 +136,7 @@ export class PostController {
     }
 
 
+
 }
 
-export default new
-
-PostController()
+export default new PostController()
