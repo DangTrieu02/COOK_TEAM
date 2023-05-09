@@ -1,6 +1,5 @@
 import postService from "../services/postService";
 import {Request, Response} from "express";
-import {getToken} from "./base";
 import likeService from "../services/likeService";
 import AppDataSource from "../data-source";
 import {Likepost} from "../entity/likepost";
@@ -17,29 +16,12 @@ export class PostController {
     }
 
     findAll = async (req: Request, res: Response) => {
-        let token = getToken(req, res)
-        let userId = token.id
-        try {
-            let listPost = await this.postService.getAllPost(userId)
-            console.log(listPost, "listPost")
-            let totalLikes = []
-            for (let item of listPost) {
-                const postId = item.id
-                console.log(postId, "postID")
-                const likes = await this.likeService.getLikeToPost(postId)
-                totalLikes.push(likes)
-            }
-            console.log('totoLike', totalLikes)
-            res.status(200).json({
-                listPost,
-                totalLikes
-            })
-
-        } catch (error) {
-            console.error(error);
-            res.status(400).json({message: 'Internal server error'});
-        }
+        let token = await getToken(req, res);
+        let isHasFriend = await friendService.isHasFriend(token.id)
+        let listPost = await this.postService.getPost(token.id,isHasFriend)
+        res.status(200).json(listPost)
     }
+
     findToUser = async (req: Request, res: Response) => {
         let token = getToken(req, res)
         let userId = token.id
