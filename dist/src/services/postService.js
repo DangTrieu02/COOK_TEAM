@@ -24,7 +24,8 @@ class PostService {
         this.getPostToUser = async (UserId) => {
             let post = await this.postRepository.find({
                 relations: {
-                    user: true
+                    user: true,
+                    likes: true,
                 }, where: {
                     user: {
                         id: UserId

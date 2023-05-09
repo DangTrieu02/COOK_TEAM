@@ -7,6 +7,8 @@ exports.PostController = void 0;
 const postService_1 = __importDefault(require("../services/postService"));
 const base_1 = require("./base");
 const likeService_1 = __importDefault(require("../services/likeService"));
+const data_source_1 = __importDefault(require("../data-source"));
+const likepost_1 = require("../entity/likepost");
 class PostController {
     constructor() {
         this.findAll = async (req, res) => {
@@ -36,16 +38,25 @@ class PostController {
         this.findToUser = async (req, res) => {
             let token = (0, base_1.getToken)(req, res);
             let userId = token.id;
-            let listPostToUser = await this.postService.getPostToUser(userId);
-            let totalLikes = [];
-            for (let item of listPostToUser) {
-                const postId = item.id;
-                console.log(postId, "postID");
-                const likes = await this.likeService.getLikeToPost(postId);
-                totalLikes.push(likes);
+            try {
+                let listPostToUser = await this.postService.getPostToUser(userId);
+                let totalLikes = [];
+                for (let item of listPostToUser) {
+                    const postId = item.id;
+                    console.log(postId, "postID");
+                    const likes = await this.likeService.getLikeToPost(postId);
+                    totalLikes.push(likes);
+                }
+                console.log('totalLike', totalLikes);
+                res.status(200).json({
+                    listPostToUser,
+                    totalLikes
+                });
             }
-            console.log('totalLike', totalLikes);
-            res.status(200).json(listPostToUser);
+            catch (error) {
+                console.error(error);
+                res.status(400).json({ message: 'Internal server error' });
+            }
         };
         this.addPostToUser = async (req, res) => {
             let token = (0, base_1.getToken)(req, res);
@@ -85,13 +96,14 @@ class PostController {
             try {
                 const token = (0, base_1.getToken)(req, res);
                 const userId = token.id;
-                const postId = req.params.id;
+                const postId = parseInt(req.params.id);
                 console.log(userId, 'userId');
                 console.log(postId, 'postId');
                 const like = await this.likeService.findUserIdandPostId(userId, postId);
+                console.log(like, "like");
                 like.isLiked = (like.isLiked === 0) ? 1 : 0;
-                console.log(like.isLiked, "like");
-                await this.likeService.save(like);
+                console.log(like, "like2");
+                await data_source_1.default.getRepository(likepost_1.Likepost).save(like);
                 res.status(200).json({
                     message: 'Update like successfully',
                     data: { isLiked: like.isLiked },

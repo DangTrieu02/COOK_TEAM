@@ -2,6 +2,8 @@ import postService from "../services/postService";
 import {Request, Response} from "express";
 import {getToken} from "./base";
 import likeService from "../services/likeService";
+import AppDataSource from "../data-source";
+import {Likepost} from "../entity/likepost";
 
 export class PostController {
     private postService;
@@ -13,19 +15,19 @@ export class PostController {
     }
 
     findAll = async (req: Request, res: Response) => {
-        let token = getToken(req,res)
+        let token = getToken(req, res)
         let userId = token.id
         try {
             let listPost = await this.postService.getAllPost(userId)
-            console.log(listPost,"listPost")
+            console.log(listPost, "listPost")
             let totalLikes = []
             for (let item of listPost) {
                 const postId = item.id
-                console.log(postId,"postID")
+                console.log(postId, "postID")
                 const likes = await this.likeService.getLikeToPost(postId)
                 totalLikes.push(likes)
             }
-            console.log('totoLike',totalLikes)
+            console.log('totoLike', totalLikes)
             res.status(200).json({
                 listPost,
                 totalLikes
@@ -33,25 +35,33 @@ export class PostController {
 
         } catch (error) {
             console.error(error);
-            res.status(400).json({ message: 'Internal server error' });
+            res.status(400).json({message: 'Internal server error'});
         }
     }
-    findToUser = async (req:Request,res:Response)=>{
-        let token = getToken(req,res)
+    findToUser = async (req: Request, res: Response) => {
+        let token = getToken(req, res)
         let userId = token.id
-        let listPostToUser = await this.postService.getPostToUser(userId)
-        let totalLikes = []
-        for (let item of listPostToUser) {
-            const postId = item.id
-            console.log(postId,"postID")
-            const likes = await this.likeService.getLikeToPost(postId)
-            totalLikes.push(likes)
+        try {
+            let listPostToUser = await this.postService.getPostToUser(userId)
+            let totalLikes = []
+            for (let item of listPostToUser) {
+                const postId = item.id
+                console.log(postId, "postID")
+                const likes = await this.likeService.getLikeToPost(postId)
+                totalLikes.push(likes)
+            }
+            console.log('totalLike', totalLikes)
+            res.status(200).json({
+                listPostToUser,
+                totalLikes
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({message: 'Internal server error'});
         }
-        console.log('totalLike',totalLikes)
-        res.status(200).json(listPostToUser)
     }
     addPostToUser = async (req: Request, res: Response) => {
-        let token = getToken(req,res)
+        let token = getToken(req, res)
         let userId = token.id
         let post = req.body
         post.user = userId
@@ -87,19 +97,19 @@ export class PostController {
         try {
             const token = getToken(req, res);
             const userId = token.id;
-            const postId = req.params.id
-            console.log(userId,'userId')
-            console.log(postId,'postId')
-            const like = await this.likeService.findUserIdandPostId(userId,postId)
-
+            const postId = parseInt(req.params.id)
+            console.log(userId, 'userId')
+            console.log(postId, 'postId')
+            const like = await this.likeService.findUserIdandPostId(userId, postId)
+            console.log(like, "like")
             // Toggle the isLiked status
-            like.isLiked =  (like.isLiked === 0) ? 1 : 0;
-            console.log( like.isLiked,"like")
-            await this.likeService.save(like);
+            like.isLiked = (like.isLiked === 0) ? 1 : 0;
+            console.log(like, "like2")
+            await AppDataSource.getRepository(Likepost).save(like);
 
             res.status(200).json({
                 message: 'Update like successfully',
-                data: { isLiked: like.isLiked },
+                data: {isLiked: like.isLiked},
             });
         } catch (err) {
             console.error(err);
@@ -108,7 +118,7 @@ export class PostController {
             });
         }
     };
-    deletePostToUser = async (req:Request, res:Response)=>{
+    deletePostToUser = async (req: Request, res: Response) => {
         let id = req.params.id;
         console.log("id del : ", id)
         if (!id) {
@@ -124,7 +134,8 @@ export class PostController {
     }
 
 
-
 }
 
-export default new PostController()
+export default new
+
+PostController()

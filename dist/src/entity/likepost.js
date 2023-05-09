@@ -9,33 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Like = void 0;
+exports.Likepost = void 0;
 const typeorm_1 = require("typeorm");
 const post_1 = require("./post");
 const user_1 = require("./user");
-let Like = class Like {
+let Likepost = class Likepost {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Like.prototype, "id", void 0);
+], Likepost.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: "int",
         default: 0
     }),
     __metadata("design:type", Number)
-], Like.prototype, "isLiked", void 0);
+], Likepost.prototype, "isLiked", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => post_1.Post, (post) => post.likes),
     __metadata("design:type", post_1.Post)
-], Like.prototype, "post", void 0);
+], Likepost.prototype, "post", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_1.User, (user) => user.likes),
     __metadata("design:type", user_1.User)
-], Like.prototype, "user", void 0);
-Like = __decorate([
+], Likepost.prototype, "user", void 0);
+Likepost = __decorate([
     (0, typeorm_1.Entity)()
-], Like);
-exports.Like = Like;
-//# sourceMappingURL=like.js.map
+], Likepost);
+exports.Likepost = Likepost;
+//# sourceMappingURL=likepost.js.map

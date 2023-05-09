@@ -2,12 +2,12 @@ import {OneToOne, Column,JoinTable,JoinColumn, Entity, PrimaryGeneratedColumn, M
 import { Post } from "./post";
 import { User } from "./user";
 @Entity()
-export class Likepost{
+export class Likepost {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({
-        type: "tinyint",
+        type: "int",
         default: 0 // giá trị mặc định là 0
     })
     isLiked: number;

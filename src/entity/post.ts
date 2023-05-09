@@ -1,7 +1,7 @@
 import {BaseEntity, Column, Entity,OneToMany ,ManyToOne, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm";
 import { User } from "./user";
 import { Comment } from "./comment";
-import { Likepost } from "./like";
+import { Likepost } from "./likepost";
 @Entity()
 export class Post{
     @PrimaryGeneratedColumn()

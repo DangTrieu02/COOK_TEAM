@@ -14,5 +14,4 @@ likeRouter.post('/',likeController.createLike);
 likeRouter.use(auth);
 likeRouter.put('/:id',postController.updateLike)
 
-
 export default likeRouter

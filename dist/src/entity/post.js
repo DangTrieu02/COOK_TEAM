@@ -13,7 +13,7 @@ exports.Post = void 0;
 const typeorm_1 = require("typeorm");
 const user_1 = require("./user");
 const comment_1 = require("./comment");
-const like_1 = require("./like");
+const likepost_1 = require("./likepost");
 let Post = class Post {
 };
 __decorate([
@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => like_1.Likepost, (likepost) => likepost.post),
+    (0, typeorm_1.OneToMany)(() => likepost_1.Likepost, (likepost) => likepost.post),
     __metadata("design:type", Array)
 ], Post.prototype, "likes", void 0);
 Post = __decorate([

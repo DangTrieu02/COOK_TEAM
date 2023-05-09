@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const post_1 = require("./post");
-const like_1 = require("./like");
+const likepost_1 = require("./likepost");
 const comment_1 = require("./comment");
 let User = class User {
 };
@@ -49,8 +49,8 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "birthday", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => like_1.Likepost, (likepost) => likepost.user),
-    __metadata("design:type", like_1.Likepost)
+    (0, typeorm_1.OneToMany)(() => likepost_1.Likepost, (likepost) => likepost.user),
+    __metadata("design:type", likepost_1.Likepost)
 ], User.prototype, "likes", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => comment_1.Comment, (comment) => comment.user),

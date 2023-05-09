@@ -1,6 +1,6 @@
 import {BaseEntity, Column, Entity,OneToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Post } from "./post"; 
-import { Likepost } from "./like";
+import { Likepost } from "./likepost";
 import { Comment } from './comment';
 import { Friend } from "./friend";
 @Entity()

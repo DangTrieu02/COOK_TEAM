@@ -4,24 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const data_source_1 = __importDefault(require("../data-source"));
-const like_1 = require("../entity/like");
+const likepost_1 = require("../entity/likepost");
 class likeService {
     constructor() {
         this.getLikeToPost = async (postId) => {
             const sqlQuery = `select count(isLiked) as 'totalLike'
-                          from \`like\`
+                          from \`likepost\`
                           where postId = ?
                             and isLiked = 1`;
             const postLike = await this.likePostRepository.query(sqlQuery, [postId]);
             return postLike;
         };
         this.findUserIdandPostId = async (userId, postId) => {
-            let postLike = await this.likePostRepository.findOneOrFail({
-                where: { user: userId, post: postId },
-            });
+            const sqQuery = `select * from \`likepost\` where userId=? and postId=?`;
+            const postLike = await this.likePostRepository.query(sqQuery, [userId, postId]);
             return postLike[0];
         };
-        this.likePostRepository = data_source_1.default.getRepository(like_1.Likepost);
+        this.likePostRepository = data_source_1.default.getRepository(likepost_1.Likepost);
     }
     async getAll(post) {
         return await this.likePostRepository.find({
