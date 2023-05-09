@@ -16,7 +16,7 @@ class likeService {
             return postLike;
         };
         this.findUserIdandPostId = async (userId, postId) => {
-            const sqQuery = `select * from \`likepost\` where userId=? and postId=?`;
+            const sqQuery = `select * from \`likepost\` where userId=?`;
             const postLike = await this.likePostRepository.query(sqQuery, [userId, postId]);
             return postLike[0];
         };
@@ -47,7 +47,13 @@ class likeService {
     }
     async remove(user, post) {
         const likeToDelete = await this.likePostRepository.findOne({ where: { user: { id: user }, post: { id: post } } });
-        await this.likePostRepository.delete(likeToDelete);
+        await this.likePostRepository.remove(likeToDelete);
+    }
+    async getLikesByUserId(id) {
+        return await this.likePostRepository.find({
+            relations: { post: true },
+            where: { user: id }
+        });
     }
 }
 exports.default = new likeService();

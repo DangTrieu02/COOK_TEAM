@@ -13,11 +13,12 @@ class PostService {
                 relations: {
                     user: true,
                     likes: true,
-                }, where: {
+                },
+                where: {
                     user: {
-                        id: (0, typeorm_1.In)([UserId, 4])
-                    }
-                }
+                        id: (0, typeorm_1.In)([UserId, 4]),
+                    },
+                },
             });
             return posts;
         };
@@ -26,11 +27,12 @@ class PostService {
                 relations: {
                     user: true,
                     likes: true,
-                }, where: {
+                },
+                where: {
                     user: {
-                        id: UserId
-                    }
-                }
+                        id: UserId,
+                    },
+                },
             });
             return post;
         };
@@ -47,20 +49,26 @@ class PostService {
     }
     async getPost(user, isHasFriend) {
         if (isHasFriend) {
+            console.log(123);
             return await this.postRepository.query(`
-            SELECT DISTINCT p.*, u.name , u.avatar
+            SELECT DISTINCT p.*, u.name , u.avatar, l.*
             FROM post p
             JOIN user u ON p.id = u.id
             JOIN friend f ON p.id = f.id  OR p.userId = f.friendId and f.status='bạn bè'
+            JOIN likepost l ON p.id = l.postId 
             WHERE u.id = ${user} OR (f.userId = ${user} OR f.friendId = ${user})
             ORDER BY p.time DESC;
             `);
         }
         else {
-            return await this.postRepository.query(`
-            select post.* , user.name, user.avatar from post
-            join user on post.userId = user.id
-            where post.userId = ${user}`);
+            console.log(456);
+            let a = await this.postRepository
+                .createQueryBuilder("post")
+                .leftJoinAndSelect("post.likes", "likes")
+                .where(`post.userId = ${user}`)
+                .getMany();
+            console.log(a);
+            return a;
         }
     }
 }

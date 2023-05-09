@@ -7,6 +7,7 @@ declare class likeService {
     remove(user: any, post: any): Promise<void>;
     getLikeToPost: (postId: any) => Promise<any>;
     findUserIdandPostId: (userId: any, postId: any) => Promise<any>;
+    getLikesByUserId(id: any): Promise<any>;
 }
 declare const _default: likeService;
 export default _default;

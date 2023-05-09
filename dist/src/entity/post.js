@@ -45,6 +45,7 @@ __decorate([
 ], Post.prototype, "comments", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => likepost_1.Likepost, (likepost) => likepost.post),
+    (0, typeorm_1.JoinColumn)({ name: "likes", referencedColumnName: "postId" }),
     __metadata("design:type", Array)
 ], Post.prototype, "likes", void 0);
 Post = __decorate([

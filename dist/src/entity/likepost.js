@@ -22,12 +22,13 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: "int",
-        default: 0
+        default: 0,
     }),
     __metadata("design:type", Number)
 ], Likepost.prototype, "isLiked", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => post_1.Post, (post) => post.likes),
+    (0, typeorm_1.JoinColumn)({ name: "post", referencedColumnName: "id" }),
     __metadata("design:type", post_1.Post)
 ], Likepost.prototype, "post", void 0);
 __decorate([

@@ -9,7 +9,9 @@ const postController_1 = __importDefault(require("../controllers/postController"
 const likeController_1 = __importDefault(require("../controllers/likeController"));
 const likeRouter = (0, express_1.Router)();
 likeRouter.get('/', likeController_1.default.getAll);
+likeRouter.get('/id', likeController_1.default.getLikeByUser);
 likeRouter.post('/', likeController_1.default.createLike);
+likeRouter.delete('/', likeController_1.default.removeLike);
 likeRouter.use(auth_1.auth);
 likeRouter.put('/:id', postController_1.default.updateLike);
 exports.default = likeRouter;
