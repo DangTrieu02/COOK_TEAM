@@ -8,13 +8,15 @@ class FriendService{
         this.friendRepository = AppDataSource.getRepository(Friend);
         this.userRepository = AppDataSource.getRepository(User);
     }
-    async getAll(){
-        return (await this.friendRepository.find({
-            relations: {
-                user: true,
-                friend:true
-            }
-        }));
+   
+    async getAll(id){
+        return (await this.userRepository.query(`
+        SELECT * FROM user WHERE user.id 
+        NOT IN (
+        SELECT userId FROM friend WHERE friendId =  ${id}
+        UNION
+        SELECT friendId FROM friend WHERE userId =   ${id}
+        ) AND user.id !=  ${id}`));
     }
     async getFriends(id) {
         let friend = await this.userRepository.query(`

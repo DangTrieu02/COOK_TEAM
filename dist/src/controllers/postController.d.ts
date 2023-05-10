@@ -9,6 +9,7 @@ export declare class PostController {
     updatePostToUser: (req: Request, res: Response) => Promise<void>;
     updateLike: (req: Request, res: Response) => Promise<void>;
     deletePostToUser: (req: Request, res: Response) => Promise<void>;
+    findOne: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: PostController;
 export default _default;

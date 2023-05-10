@@ -9,7 +9,8 @@ import { getToken } from './base';
 class FriendController{
     constructor(){}
     async getAll(req:Request, res:Response){
-        let all= await friendService.getAll();
+        let token = await getToken(req,res)
+        let all= await friendService.getAll(token.id);
         res.status(200).json(all);
     }
 
@@ -26,7 +27,6 @@ class FriendController{
     async confirm(req:Request, res:Response){
         await friendService.confirm(req.query.id)
         res.status(200).json({message:"đã xác nhận !"})
-
     }
     async waitList(req:Request, res:Response){
         let token = getToken(req,res)

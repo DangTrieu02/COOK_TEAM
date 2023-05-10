@@ -11,13 +11,14 @@ class FriendService {
         this.friendRepository = data_source_1.default.getRepository(friend_1.Friend);
         this.userRepository = data_source_1.default.getRepository(user_1.User);
     }
-    async getAll() {
-        return (await this.friendRepository.find({
-            relations: {
-                user: true,
-                friend: true
-            }
-        }));
+    async getAll(id) {
+        return (await this.userRepository.query(`
+        SELECT * FROM user WHERE user.id 
+        NOT IN (
+        SELECT userId FROM friend WHERE friendId =  ${id}
+        UNION
+        SELECT friendId FROM friend WHERE userId =   ${id}
+        ) AND user.id !=  ${id}`));
     }
     async getFriends(id) {
         let friend = await this.userRepository.query(`

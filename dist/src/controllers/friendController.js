@@ -8,7 +8,8 @@ const base_1 = require("./base");
 class FriendController {
     constructor() { }
     async getAll(req, res) {
-        let all = await friendService_1.default.getAll();
+        let token = await (0, base_1.getToken)(req, res);
+        let all = await friendService_1.default.getAll(token.id);
         res.status(200).json(all);
     }
     async getFriendById(req, res) {

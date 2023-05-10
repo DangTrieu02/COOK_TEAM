@@ -5,39 +5,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const data_source_1 = __importDefault(require("../data-source"));
 const post_1 = require("../entity/post");
-const typeorm_1 = require("typeorm");
 class PostService {
     constructor() {
-        this.getAllPost = async (UserId) => {
-            let posts = await this.postRepository.find({
-                relations: {
-                    user: true,
-                    likes: true,
-                },
-                where: {
-                    user: {
-                        id: (0, typeorm_1.In)([UserId, 4]),
-                    },
-                },
-            });
-            return posts;
-        };
-        this.getPostToUser = async (UserId) => {
+        this.getAllPost = async () => {
             let post = await this.postRepository.find({
                 relations: {
-                    user: true,
-                    likes: true,
-                },
-                where: {
-                    user: {
-                        id: UserId,
-                    },
-                },
+                    user: true
+                }
             });
             return post;
         };
         this.addPost = async (post) => {
             await this.postRepository.save(post);
+        };
+        this.findOne = async (post) => {
+            return await this.postRepository.find({
+                relations: { user: true },
+                where: { id: post }
+            });
         };
         this.updatePost = async (id, updateNow) => {
             await this.postRepository.update({ id: id }, updateNow);
@@ -49,13 +34,11 @@ class PostService {
     }
     async getPost(user, isHasFriend) {
         if (isHasFriend) {
-            console.log(123);
             return await this.postRepository.query(`
-            SELECT DISTINCT p.*, u.name , u.avatar, l.*
+            SELECT DISTINCT p.*, u.name , u.avatar
             FROM post p
-            JOIN user u ON p.id = u.id
-            JOIN friend f ON p.id = f.id  OR p.userId = f.friendId and f.status='bạn bè'
-            JOIN likepost l ON p.id = l.postId 
+            JOIN user u ON p.userId = u.id
+            JOIN friend f ON p.userId = f.friendId  OR p.userId = f.userId and f.status='bạn bè'
             WHERE u.id = ${user} OR (f.userId = ${user} OR f.friendId = ${user})
             ORDER BY p.time DESC;
             `);

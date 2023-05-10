@@ -117,6 +117,11 @@ export class PostController {
         }
     }
 
+    findOne=async(req:Request,res:Response)=>{
+        let idPost = req.query.id
+        let post = await this.postService.findOne(idPost);
+        res.status(200).json(post)
+    }
 
 
 }
