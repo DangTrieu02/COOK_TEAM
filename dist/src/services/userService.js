@@ -13,31 +13,33 @@ class UserService {
         this.userRepository = data_source_1.default.getRepository(user_1.User);
     }
     async getAll() {
-        return (await this.userRepository.find());
+        return await this.userRepository.find();
     }
     async getById(id) {
-        return (await this.userRepository.find({
-            where: { id: id }
-        }));
+        return await this.userRepository.find({
+            where: { id: id },
+        });
     }
     async register(user) {
         user.password = await bcrypt_1.default.hash(user.password, 4);
         await this.userRepository.save(user);
     }
     async find(email) {
-        return (await this.userRepository.find({ where: { email: email } }));
+        return await this.userRepository.find({ where: { email: email } });
     }
     async checkLogin(user) {
-        let userFind = await this.userRepository.find({ where: { email: user.email } });
+        let userFind = await this.userRepository.find({
+            where: { email: user.email },
+        });
         if (userFind.length != 0) {
             let comparePassword = await bcrypt_1.default.compare(user.password, userFind[0].password);
             if (comparePassword) {
                 let payload = {
                     name: userFind[0].name,
-                    id: userFind[0].id
+                    id: userFind[0].id,
                 };
                 return jsonwebtoken_1.default.sign(payload, auth_1.SECRET_KEY, {
-                    expiresIn: 36000 * 1000
+                    expiresIn: 36000 * 1000,
                 });
             }
             else {

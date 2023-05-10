@@ -23,8 +23,7 @@ class PostService {
             ORDER BY p.time DESC;
             `);
     } else {
-      console.log(456);
-
+ 
       //   return  this.postRepository.query(`
       //         select post.* , user.name, user.avatar from post
       //         join user on post.userId = user.id
@@ -33,9 +32,9 @@ class PostService {
       let a = await this.postRepository
         .createQueryBuilder("post")
         .leftJoinAndSelect("post.likes", "likes")
+        .leftJoinAndSelect("post.user", "user")
         .where(`post.userId = ${user}`)
         .getMany();
-      console.log(a);
       return a;
     }
   }

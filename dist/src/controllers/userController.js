@@ -24,6 +24,7 @@ class UserController {
     }
     async login(req, res) {
         let checked = await userService_1.default.checkLogin(req.body);
+        console.log(checked);
         res.status(200).json(checked);
     }
     async updateName(req, res) {

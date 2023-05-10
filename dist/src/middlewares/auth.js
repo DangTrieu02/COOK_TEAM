@@ -9,8 +9,9 @@ const userService_1 = __importDefault(require("../services/userService"));
 exports.SECRET_KEY = "hihihaha";
 async function checkRegister(req, res, next) {
     let checkName = await userService_1.default.find(req.body.email);
+    console.log(checkName, 11111);
     if (checkName.length != 0) {
-        res.status(201).json('tai khoan da ton tai !');
+        return res.status(201).json("tai khoan da ton tai !");
     }
     else {
         return next();
@@ -20,13 +21,13 @@ exports.checkRegister = checkRegister;
 const auth = (req, res, next) => {
     let authorization = req.headers.authorization;
     if (authorization) {
-        let accessToken = authorization.split(' ')[1];
+        let accessToken = authorization.split(" ")[1];
         if (accessToken) {
             jsonwebtoken_1.default.verify(accessToken, exports.SECRET_KEY, (err, payload) => {
                 if (err) {
                     res.status(401).json({
                         error: err.message,
-                        message: 'Bạn k có quyền'
+                        message: "Bạn k có quyền",
                     });
                 }
                 else {
@@ -37,13 +38,13 @@ const auth = (req, res, next) => {
         }
         else {
             res.status(401).json({
-                message: 'Bạn k có quyền'
+                message: "Bạn k có quyền",
             });
         }
     }
     else {
         res.status(401).json({
-            message: 'Bạn k có quyền'
+            message: "Bạn k có quyền",
         });
     }
 };

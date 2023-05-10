@@ -61,13 +61,12 @@ class PostService {
             `);
         }
         else {
-            console.log(456);
             let a = await this.postRepository
                 .createQueryBuilder("post")
                 .leftJoinAndSelect("post.likes", "likes")
+                .leftJoinAndSelect("post.user", "user")
                 .where(`post.userId = ${user}`)
                 .getMany();
-            console.log(a);
             return a;
         }
     }
