@@ -11,5 +11,5 @@ userRouter.patch('/name',userController.updateName)
 userRouter.patch('/avatar',userController.updateAvatar)
 userRouter.patch('/background',userController.updateBackground)
 userRouter.get('/home',userController.getUser)
-
+// git nhu cc
 export default userRouter;
