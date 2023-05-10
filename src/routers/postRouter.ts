@@ -5,8 +5,9 @@ import {auth} from "../middlewares/auth";
 const postRouter = Router();
 postRouter.use(auth)
 postRouter.get('/',postController.findAll)
+postRouter.get('/comment',postController.findOne)
 postRouter.post('/',postController.addPostToUser)
 postRouter.put('/:id',postController.updatePostToUser)
 postRouter.delete('/:id',postController.deletePostToUser)
 
-export default postRouter
+export default postRouter;

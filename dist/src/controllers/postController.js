@@ -62,6 +62,11 @@ class PostController {
                 });
             }
         };
+        this.findOne = async (req, res) => {
+            let idPost = req.query.id;
+            let post = await this.postService.findOne(idPost);
+            res.status(200).json(post);
+        };
         this.postService = postService_1.default;
     }
 }

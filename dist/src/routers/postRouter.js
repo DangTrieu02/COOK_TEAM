@@ -9,6 +9,7 @@ const auth_1 = require("../middlewares/auth");
 const postRouter = (0, express_1.Router)();
 postRouter.use(auth_1.auth);
 postRouter.get('/', postController_1.default.findAll);
+postRouter.get('/comment', postController_1.default.findOne);
 postRouter.post('/', postController_1.default.addPostToUser);
 postRouter.put('/:id', postController_1.default.updatePostToUser);
 postRouter.delete('/:id', postController_1.default.deletePostToUser);

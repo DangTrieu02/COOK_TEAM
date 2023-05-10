@@ -2,7 +2,7 @@ declare class FriendService {
     private friendRepository;
     userRepository: any;
     constructor();
-    getAll(): Promise<any>;
+    getAll(id: any): Promise<any>;
     getFriends(id: any): Promise<any>;
     getFriend(id: any): Promise<any>;
     waitList(friend: any): Promise<any>;
