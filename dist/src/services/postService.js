@@ -58,10 +58,13 @@ class PostService {
             `);
         }
         else {
-            return await this.postRepository.query(`
-            select post.* , user.name, user.avatar from post
-            join user on post.userId = user.id
-            where post.userId = ${user}`);
+            let a = await this.postRepository
+                .createQueryBuilder("post")
+                .leftJoinAndSelect("post.likes", "likes")
+                .leftJoinAndSelect("post.user", "user")
+                .where(`post.userId = ${user}`)
+                .getMany();
+            return a;
         }
     }
 }
